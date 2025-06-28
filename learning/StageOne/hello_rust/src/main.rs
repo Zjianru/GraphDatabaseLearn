@@ -22,11 +22,20 @@ use std::cmp::Ordering;
 // io 模块包含了处理输入输出的功能
 use std::io;
 
+mod tup_test;
 // 【fn】是 function 的缩写，用于声明函数
 // main 函数是程序的入口点，每个可执行的 Rust 程序都必须有一个 main 函数
 // () 表示这个函数不接收任何参数
 // 没有 -> 表示这个函数不返回任何值（返回类型是 ()，称为 unit 类型）
+
 fn main() {
+    // 调用 tupTest 模块中的 run_tupTest 函数
+    tup_test::run_tup_test();
+    // 调用 guess_number 函数
+    // guess_number();
+}
+
+fn guess_number() {
     // 【println!】是一个宏（注意感叹号！），不是函数
     // 宏在编译时展开，可以接受可变数量的参数
     // 宏可以做函数做不到的事，比如接受可变数量和类型的参数
@@ -38,7 +47,7 @@ fn main() {
     // 双引号 "" 表示字符串字面量（&str 类型）
     println!("Guess the number!");
     println!("Please input your number!");
-    
+
     // 【let】用于声明变量（类似 Java 的 final，默认不可变）
     // secret_number 是变量名，Rust 使用 snake_case 命名规范
     // 变量名规则：必须以字母或下划线开头，可包含字母、数字、下划线
@@ -71,7 +80,7 @@ fn main() {
     // - 后缀标注：let mut count = 0u32;
     // - 后续使用会影响推断：如果后面有 count += 1u32，会推断为 u32
     let mut count = 0;
-    
+
     // 【loop】创建一个无限循环
     // 与 while true 类似，但在 Rust 中 loop 是推荐的无限循环方式
     // 只能通过 break 退出循环，或者通过 return 退出函数
@@ -119,16 +128,16 @@ fn main() {
         // : u32 是类型注解，告诉 Rust 我们想要解析成 u32 类型
         // u32 是无符号（unsigned）32 位整数，范围是 0 到 4,294,967,295
         let guess: u32 = guess
-            .trim()      // 去除字符串两端的空白字符（空格、换行符等）
-            .parse()     // 将字符串解析为数字，返回 Result<u32, ParseIntError>
+            .trim() // 去除字符串两端的空白字符（空格、换行符等）
+            .parse() // 将字符串解析为数字，返回 Result<u32, ParseIntError>
             .expect("Please type a number!"); // 如果解析失败则 panic
-        
+
         // 【注意】上面的 expect 会导致程序 panic（崩溃）
         // 如果用户输入了非数字（如 "abc"），程序会：
         // 1. 打印 "Please type a number!"
         // 2. 打印 panic 的详细信息和调用栈
         // 3. 整个程序终止
-        // 
+        //
         // 更好的错误处理方式是使用 match：
         // let guess: u32 = match guess.trim().parse() {
         //     Ok(num) => num,
@@ -212,9 +221,8 @@ fn main() {
                 println!("You win!");
                 // 猜对了，退出循环
                 break;
-            }
-            // 注意：match 必须处理所有情况
-            // Ordering 只有这三个值，所以我们已经覆盖了所有情况
+            } // 注意：match 必须处理所有情况
+              // Ordering 只有这三个值，所以我们已经覆盖了所有情况
         }
     }
     // 循环结束后，程序也结束了
